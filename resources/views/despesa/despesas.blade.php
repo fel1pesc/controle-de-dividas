@@ -2,9 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <title>Contas - {{$dados['nome']}}</title>
+
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+    <script src="{{ asset('jquery/jquery-3.4.1.min.js') }}"></script>
 </head>
 <body>
     <div class="container">
@@ -26,9 +27,9 @@
             <form method="GET" action="/" accept-charset="UTF-8" id="form-filtro">
                 <div class="col-md-12">
                     <div class="input-group">
-                        <input type="text" name="filtro" class="form-control">
+                        <input type="text" name="resumo-filtro" id="resumo_filtro" class="form-control">
                         <div class="input-group-append">
-                            <button type="submit" id="button-filtro" class="btn btn-primary">Filtrar</button>
+                            <button type="button" id="button-filtro" class="btn btn-primary">Filtrar</button>
                         </div>   
                         <a href="{{url('/')}}" class="btn btn-primary" style="margin-left: 15px; border-radius: 0px !important">Limpar Filtro</a>
                     </div>
@@ -48,24 +49,8 @@
                             <th>Valor</th>
                         </tr>
                         </thead>
-                        <tbody>
-                            @php
-                                $valorTotal = 0
-                            @endphp
-                            @foreach ($dados['contas'] as $row)
-                                <tr {!! \App\Models\Despesa::verificarVencimento($row['vencimento']) !!}>
-
-                                    <td>{{$row['resumo']}}</td>
-                                    <td>{{$row['titulo']}}</td>
-                                    <td>{{date_format(date_create($row['vencimento']), 'd/m/Y')}}</td>
-                                    <td>R$ {{number_format($row['valor'], 2 ,',', '.')}}</td>
-                                </tr>
-                                @php $valorTotal += $row['valor'] @endphp
-                            @endforeach
-                            <tr>
-                                <td colspan="3" style="text-align: right; font-weight: bold;">Total:</td>
-                                <td>R$ {{number_format($valorTotal, 2 ,',', '.')}}</td>
-                            </tr>
+                        <tbody id="table">
+                            @includeIf('despesa.contas')
                         </tbody>
                     </table>
                 </div>
@@ -73,4 +58,5 @@
         </div>
     </div>
 </body>
+<script src="{{ asset('js/despesas.js') }}"></script>
 </html>

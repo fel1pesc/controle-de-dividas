@@ -13,13 +13,20 @@ class Despesa extends Model
 
         $dados  = Despesa::obterDadosJson(base_path('files/contas.json'));
 
-        if($filtro)
-            $dados['contas']  = Despesa::filtro($dados, $filtro);
+        if($filtro){
+            $resumo = $request->input('resumo_filtro');
+
+            if($resumo){ 
+                $dados['contas']  = Despesa::filtrarPeloResumo($dados, $resumo);
+            }
+
+            return view('despesa.contas', compact('dados'));
+        }
 
         return view('despesa.despesas', compact('dados'));
     }
 
-    public static function filtro($dados, $filtro)
+    public static function filtrarPeloResumo($dados, $filtro)
     {
         $arrayFiltrado = [];
 
@@ -45,16 +52,21 @@ class Despesa extends Model
         $prazoDias = Carbon::parse($data)->diffInDays($dataAtual);
         $cor = '';
 
-        if ($prazoDias >= 60)
-            $cor = 'green';
-        elseif ($prazoDias >= 30)
-            $cor = 'orange';
-        else
-            $cor = 'red';
+        if($data < $dataAtual)
+            return 'style="color: red;" data-toggle="tooltip" data-placement="right" title="Essa conta já está vencida a '.$prazoDias.' dias."';
 
+        switch($prazoDias){
+            case $prazoDias > 60:
+                $cor = 'green';
+                break;
+            case $prazoDias > 30:
+                $cor = 'orange';
+                break;
+            default:
+                $cor = 'red';
+                break;
+        }
 
-
-
-        return 'style="color:'.$cor.';" data-toggle="tooltip" data-placement="right" title="Faltam '.$prazoDias.' dias para o vencimento dessa conta." id="tr-tooltip"';
+        return 'style="color:'.$cor.';" data-toggle="tooltip" data-placement="right" title="Faltam '.$prazoDias.' dias para o vencimento dessa conta."';
     }
 }
