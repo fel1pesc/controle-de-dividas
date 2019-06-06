@@ -53,7 +53,7 @@ class Despesa extends Model
         $cor = '';
 
         if($data < $dataAtual)
-            return 'style="color: red;" data-toggle="tooltip" data-placement="right" title="Essa conta já está vencida a '.$prazoDias.' dias."';
+            return 'style="border-left: 6px solid red; color: red;" data-toggle="tooltip" data-placement="right" title="Essa conta já está vencida a '.$prazoDias.' dias."';
 
         switch($prazoDias){
             case $prazoDias > 60:
@@ -67,6 +67,6 @@ class Despesa extends Model
                 break;
         }
 
-        return 'style="color:'.$cor.';" data-toggle="tooltip" data-placement="right" title="Faltam '.$prazoDias.' dias para o vencimento dessa conta."';
+        return 'style="border-left: 6px solid '.$cor.';" data-toggle="tooltip" data-placement="right" title="Faltam '.$prazoDias.' dias para o vencimento dessa conta."';
     }
 }
