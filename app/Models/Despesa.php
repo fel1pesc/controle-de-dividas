@@ -31,7 +31,7 @@ class Despesa extends Model
         $arrayFiltrado = [];
 
         foreach ($dados['contas'] as $key => $row) {
-            if($row['resumo'] == $filtro)
+            if(strchr($row['resumo'], $filtro))
                 array_push($arrayFiltrado, $row);
         }
 

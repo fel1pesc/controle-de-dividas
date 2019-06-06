@@ -1,8 +1,8 @@
 $(document).ready(function(){
-    $("#button-filtro").click(function(){
+    $("#button_filtro").click(function(){
     	$.ajax({
             type: "GET",
-            url: window.location.origin,
+            url: $("limpar_form_filtro").attr('href'),
             data: {resumo_filtro: $("#resumo_filtro").val(), filtro: true},
             success: function(data){
                 if(data) {

@@ -24,17 +24,15 @@
             </div>
         </div>
         <div class="row">
-            <form method="GET" action="/" accept-charset="UTF-8" id="form-filtro">
-                <div class="col-md-12">
-                    <div class="input-group">
-                        <input type="text" name="resumo-filtro" id="resumo_filtro" class="form-control">
-                        <div class="input-group-append">
-                            <button type="button" id="button-filtro" class="btn btn-primary">Filtrar</button>
-                        </div>   
-                        <a href="{{url('/')}}" class="btn btn-primary" style="margin-left: 15px; border-radius: 0px !important">Limpar Filtro</a>
-                    </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text" name="resumo-filtro" id="resumo_filtro" class="form-control">
+                    <div class="input-group-append">
+                        <button type="button" id="button_filtro" class="btn btn-primary">Filtrar</button>
+                    </div>   
+                    <a href="{{url('')}}" id="limpar_form_filtro" class="btn btn-primary" style="margin-left: 15px; border-radius: 0px !important">Limpar Filtro</a>
                 </div>
-            </form>
+            </div>
         </div>
         <br/>
         <div class="row">
